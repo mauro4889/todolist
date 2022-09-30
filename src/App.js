@@ -12,7 +12,7 @@ function App() {
         <Navbar />
         <Grid templateColumns="1fr 2fr">
           <Menu />
-          <Login/>
+          <Routes/>
         </Grid>
       </Stack>
   );
