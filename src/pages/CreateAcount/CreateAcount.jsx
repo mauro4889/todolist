@@ -10,7 +10,7 @@ export const CreateAcount = () => {
             margin='auto'
             align='center'
             mt='10%'
-            gap='10%'
+            gap='7%'
             borderRadius='5px'>
             <Text
             fontWeight='bold'
