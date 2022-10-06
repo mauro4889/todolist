@@ -5,7 +5,12 @@ import { TodoList } from '../../components/TodoList/TodoList'
 
 export const Todo = () => {
     return (
-        <Stack w='90%' m='auto' mt='0'>
+        <Stack 
+        maxW='95vw' 
+        m='auto' 
+        mt='0'
+        placeItems='center' 
+        direction='column'>
             <Heading textAlign='center' color='white'>Lista de tareas</Heading>
             <TodoForm/>
             <TodoList/>

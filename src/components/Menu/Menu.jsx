@@ -1,21 +1,18 @@
-import { Box, Button, Flex, Stack } from '@chakra-ui/react'
-import React from 'react'
+import { Box, Button, Drawer, DrawerBody, Flex, Stack, useDisclosure } from '@chakra-ui/react'
+import React, { useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClipboard, faUser } from '@fortawesome/free-regular-svg-icons'
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 import { NavLink } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 export const Menu = () => {
+    const { visible } = useSelector((state) => state.menu)
+    const { isOpen, onClose } = useDisclosure()
+
     return (
-        <Stack 
-        h='80vh' 
-        border='1px' 
-        borderColor='white' 
-        borderRight='2px solid#24222E' 
-        mt='-0.5em' 
-        direction='column' 
-        justify='space-around'
-        align='center'>
+        <Drawer isOpen={visible} placement='left'>
+            <DrawerBody>
                 <Box>
                     <Button
                         border='none'
@@ -23,7 +20,7 @@ export const Menu = () => {
                         h='2.5em'
                         borderRadius='5%'
                         bg='white'
-                        leftIcon={<FontAwesomeIcon icon={faClipboard} 
+                        leftIcon={<FontAwesomeIcon icon={faClipboard}
                         />} >
                         <NavLink to='/'>Tareas</NavLink></Button>
                 </Box>
@@ -46,6 +43,7 @@ export const Menu = () => {
                         leftIcon={<FontAwesomeIcon icon={faRightFromBracket} />} >
                         Salir</Button>
                 </Box>
-        </Stack>
+            </DrawerBody>
+        </Drawer>
     )
 }
