@@ -7,11 +7,10 @@ import { NavLink } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 export const Menu = () => {
-    const { visible } = useSelector((state) => state.menu)
-    const { isOpen, onClose } = useDisclosure()
+
 
     return (
-        <Drawer isOpen={visible} placement='left'>
+        <Drawer >
             <DrawerBody>
                 <Box>
                     <Button

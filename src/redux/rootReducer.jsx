@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
-import { btnmenuReducer } from './btnmenuReducer/btnmenuReducer'
+import { userReducer } from './user/userReducer'
 
 
 export const rootReducer = combineReducers({
-    menu: btnmenuReducer,
+    user: userReducer
 })
