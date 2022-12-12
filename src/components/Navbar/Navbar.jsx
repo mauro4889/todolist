@@ -1,22 +1,22 @@
 import { Avatar, Box, Button, Flex, Image, Menu, MenuButton, MenuItem, MenuList, Stack, Text } from '@chakra-ui/react'
-import React from 'react'
 import { useSelector } from 'react-redux'
 import { NavLink, useNavigate } from 'react-router-dom'
 import logo from '../../assets/img/logo.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser } from '@fortawesome/free-regular-svg-icons'
 import { faUserAlt } from '@fortawesome/free-solid-svg-icons'
+import { useEffect } from 'react'
+import { getUser } from '../../axios/user.ts'
+
 
 
 export const Navbar = () => {
     const navigate = useNavigate()
     const { user } = useSelector((state) => state.user)
 
+    getUser()
     const navigateHome = () => {
         navigate('/')
     }
-
-    console.log(user)
 
     return (
         <Stack w='100vw' borderBottom='2px solid #24222E'>
@@ -32,7 +32,7 @@ export const Navbar = () => {
                         <Menu>
                             <MenuButton as={Button} bg='none' border='none' cursor='pointer' isDisabled={!user} fontSize='20px' color='#fff'>
                                 {user ?  <Avatar
-                                    name='Dan Abrahmov'
+                                    name={user.data.email}
                                     src={user.photoURL}
                                     borderRadius='100%'
                                     w='4em'
@@ -55,7 +55,7 @@ export const Navbar = () => {
                             </MenuList>
                         </Menu>
                         <Text color='white' fontWeight='bold'>
-                            {user ? `${user.name}` : <NavLink to='/login' >Iniciar sesion</NavLink>}
+                            {user ? `${user.data.emai}` : <NavLink to='/login' >Iniciar sesion</NavLink>}
                         </Text>
                     </Flex>
                 </Box>

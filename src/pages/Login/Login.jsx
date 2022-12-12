@@ -1,8 +1,11 @@
 import { FormControl, VStack, Text, Box, Input, Button } from "@chakra-ui/react"
+import { useState } from "react"
 import { useForm } from "react-hook-form"
+import { useDispatch } from "react-redux"
 import { NavLink, useLocation } from "react-router-dom"
-import { createUserProfile, signIn } from "../../firebase/firebase-utils"
+import { login } from "../../axios/user.ts"
 import { useRedirect } from "../../hook/useRedirect"
+import { setCurrentUser } from "../../redux/user/userAction"
 
 const ERROR_CODE = {
     WRONG_PASSWORD: 'auth/wrong-password',
@@ -13,14 +16,17 @@ export const Login = () => {
     const {state} = useLocation()
     useRedirect(state?.checkout ? 'checkout' : '/')
     const {reset, register, handleSubmit} = useForm()
+    const dispatch = useDispatch()
+    const [token, setToken] = useState('')
+
 
 
     const onSubmit = async values =>{
         const {email, password} = values;
         try {
-            const {user} = await signIn(email, password)
-            createUserProfile(user)
-            console.log(user)
+            const user = await login(email, password)
+            localStorage.setItem('token', JSON.stringify(user.data.token))
+            dispatch(setCurrentUser(user.data))
         } catch (error) {
             const {code} = error
             switch(code){
@@ -35,6 +41,7 @@ export const Login = () => {
         reset()
     }
 
+    
 
     return (
         <VStack bg='white' w='22em' m='auto' mt='5%' borderRadius='5%'>

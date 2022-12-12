@@ -1,4 +1,3 @@
-import { Grid, Stack } from "@chakra-ui/react";
 import { onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
