@@ -1,4 +1,6 @@
 import axios from "axios";
+import jwt from 'jwt-decode'
+
 
 const token = localStorage.getItem('token')
 
@@ -9,12 +11,28 @@ export const getUser = async () => {
             method: 'get',
             url: 'http://localhost:3001/users',
             headers:{
-                authorization: "Bearer " + token
+                authorization: "Bearer " + token?.replace(/['"]+/g, '')
             }
         });
-        console.log(`Respuesta del get ${response}`);
+        console.log(response);
     } catch (error) {
         console.error(error);
+    }
+}
+
+export const getOneById = async () => {
+    try {
+        const {id} = await jwt(token)
+        const response = await axios({
+            method: 'get',
+            url: `http://localhost:3001/users/${id}`,
+            headers:{
+                authorization: "Bearer " + token?.replace(/['"]+/g, '')
+            }            
+        })
+        return response.data
+    } catch (error) {
+        
     }
 }
 

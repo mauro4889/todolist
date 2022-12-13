@@ -1,10 +1,10 @@
 import { Box, Button, Drawer, DrawerBody, Flex, Stack, useDisclosure } from '@chakra-ui/react'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClipboard, faUser } from '@fortawesome/free-regular-svg-icons'
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 import { NavLink } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+
 
 export const Menu = () => {
 

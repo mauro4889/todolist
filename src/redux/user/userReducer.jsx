@@ -2,9 +2,6 @@ import { SET_USER } from "./userAction"
 
 
 const initialState = {
-    email: "",
-    token: "",
-    permission: []
 }
 
 export const userReducer = (state = initialState, action) =>{

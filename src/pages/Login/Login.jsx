@@ -1,9 +1,8 @@
 import { FormControl, VStack, Text, Box, Input, Button } from "@chakra-ui/react"
-import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { useDispatch } from "react-redux"
 import { NavLink, useLocation } from "react-router-dom"
-import { login } from "../../axios/user.ts"
+import { getOneById, login } from "../../axios/user"
 import { useRedirect } from "../../hook/useRedirect"
 import { setCurrentUser } from "../../redux/user/userAction"
 
@@ -17,7 +16,6 @@ export const Login = () => {
     useRedirect(state?.checkout ? 'checkout' : '/')
     const {reset, register, handleSubmit} = useForm()
     const dispatch = useDispatch()
-    const [token, setToken] = useState('')
 
 
 
@@ -25,8 +23,11 @@ export const Login = () => {
         const {email, password} = values;
         try {
             const user = await login(email, password)
+            const isEmail = user.data.data
+            console.log(isEmail)
+            localStorage.removeItem('token')
             localStorage.setItem('token', JSON.stringify(user.data.token))
-            dispatch(setCurrentUser(user.data))
+            dispatch(setCurrentUser(isEmail))
         } catch (error) {
             const {code} = error
             switch(code){
