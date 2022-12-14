@@ -23,11 +23,10 @@ export const Login = () => {
         const {email, password} = values;
         try {
             const user = await login(email, password)
-            const isEmail = user.data.data
-            console.log(isEmail)
+            const isUser = await user.data.data
             localStorage.removeItem('token')
             localStorage.setItem('token', JSON.stringify(user.data.token))
-            dispatch(setCurrentUser(isEmail))
+            dispatch(setCurrentUser(isUser))
         } catch (error) {
             const {code} = error
             switch(code){

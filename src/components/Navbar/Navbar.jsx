@@ -11,7 +11,6 @@ import { faUserAlt } from '@fortawesome/free-solid-svg-icons'
 export const Navbar = () => {
     const navigate = useNavigate()
     const { user } = useSelector((state) => state.user)
-
     
     const navigateHome = () => {
         navigate('/')
@@ -32,8 +31,8 @@ export const Navbar = () => {
                         <Menu>
                             <MenuButton as={Button} bg='none' border='none' cursor='pointer' isDisabled={!user} fontSize='20px' color='#fff'>
                                 {user ?  <Avatar
-                                    name={user.data.email}
-                                    src={user.photoURL}
+                                    name={user}
+                                    src={user}
                                     borderRadius='100%'
                                     w='4em'
                                     mr='2em'
@@ -55,7 +54,7 @@ export const Navbar = () => {
                             </MenuList>
                         </Menu>
                         <Text color='white' fontWeight='bold'>
-                            {user ? `${user.data.emai}` : <NavLink to='/login' >Iniciar sesion</NavLink>}
+                            {user ? `${user}` : <NavLink to='/login' >Iniciar sesion</NavLink>}
                         </Text>
                     </Flex>
                 </Box>

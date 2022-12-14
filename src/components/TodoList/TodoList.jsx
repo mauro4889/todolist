@@ -4,17 +4,18 @@ import React, { useState } from 'react'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getOneById } from '../../axios/user'
-import { setCurrentUser } from '../../redux/user/userAction'
+import { updateTask } from '../../redux/task/taskAction'
+
 
 export const TodoList = () => {
     const [isTask, setIsTask] = useState()
-    const user = useSelector(state => state.user)
     const dispatch = useDispatch()
+    const tasks = useSelector(state=> state.tasks)
+    console.log(tasks)
 
     const dataUser = async () => {
         const data = await getOneById()
-        const { email, tasks } = data.data
-        console.log(user)
+        dispatch(updateTask(data.data.tasks))
     }
 
     useEffect(() => {

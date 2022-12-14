@@ -17,3 +17,8 @@ export const updateTask = task => ({
     type: UPDATE,
     payload: task
 })
+
+export const getTasks = tasks => ({
+    type: GET,
+    payload: tasks
+})
