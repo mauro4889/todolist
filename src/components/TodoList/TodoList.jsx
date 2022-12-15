@@ -5,22 +5,30 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getOneById } from '../../axios/user'
 import { updateTask } from '../../redux/task/taskAction'
+import { Task } from '../Task/Task'
 
 
 export const TodoList = () => {
     const [isTask, setIsTask] = useState()
     const dispatch = useDispatch()
-    const tasks = useSelector(state=> state.tasks)
-    console.log(tasks)
+    const tasks = useSelector(state => state.tasks)
+    console.log(tasks.tasks)
+
 
     const dataUser = async () => {
-        const data = await getOneById()
-        dispatch(updateTask(data.data.tasks))
+        try {
+            const data = await getOneById()
+            const sendData = await dispatch(updateTask(data.data.tasks))
+            return sendData
+        } catch (error) {
+            console.log(error)
+        }
     }
+
 
     useEffect(() => {
         dataUser()
-    }, [])
+    }, [isTask])
 
     return (
         <Stack
@@ -29,48 +37,7 @@ export const TodoList = () => {
             w='100%'
             maxW='768px'
             placeItems='center'>
-            <Box borderBottom='1px solid #61ABFF' w='90%'>
-                <Flex justifyContent='space-between' alignItems='center'>
-                    <Stack direction='row'>
-                        <Button
-                            border='none'
-                            h='1.5em'
-                            bg='white'
-                            color='green'
-                            cursor='pointer'>
-                            <Icon as={CheckIcon} />
-                        </Button>
-                        <Button
-                            border='none'
-                            h='1.5em'
-                            bg='white'
-                            color='red'
-                            cursor='pointer'
-                        ><Icon as={CloseIcon} /></Button>
-                    </Stack>
-                    <Text>Tarea para hacer larga</Text>
-                </Flex>
-            </Box>
-            <Box borderBottom='1px solid #61ABFF' w='90%'>
-                <Flex justifyContent='space-between' alignItems='center'>
-                    <Stack direction='row'>
-                        <Button
-                            border='none'
-                            borderRadius='10%'
-                            h='1.5em'
-                            bg='white'
-                            color='green'><Icon as={CheckIcon} /></Button>
-                        <Button
-                            border='none'
-                            borderRadius='10%'
-                            h='1.5em'
-                            bg='white'
-                            color='red'
-                        ><Icon as={CloseIcon} /></Button>
-                    </Stack>
-                    <Text>Tarea para hacer corta</Text>
-                </Flex>
-            </Box>
+                {tasks.tasks ? tasks.tasks.map( task => <Task key={task.id} {...task} />) : console.log('no hay tareas')} 
             <Box>
                 <Button
                     bg='#FF5C7D'
