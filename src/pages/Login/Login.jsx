@@ -26,6 +26,7 @@ export const Login = () => {
             const isUser = await user.data.data
             localStorage.removeItem('token')
             localStorage.setItem('token', JSON.stringify(user.data.token))
+            localStorage.setItem('user', JSON.stringify(user.data))
             dispatch(setCurrentUser(isUser))
         } catch (error) {
             const {code} = error

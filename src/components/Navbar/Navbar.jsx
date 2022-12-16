@@ -4,17 +4,30 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import logo from '../../assets/img/logo.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserAlt } from '@fortawesome/free-solid-svg-icons'
+import { useEffect } from 'react'
+import { useState } from 'react'
 
 
 
 
 export const Navbar = () => {
     const navigate = useNavigate()
-    const { user } = useSelector((state) => state.user)
-    
+    const [isUser, setIsUser] = useState()
+
     const navigateHome = () => {
         navigate('/')
     }
+
+    const userState = async () => {
+        const loggedUser = await localStorage.getItem('user')
+        const user = await JSON.parse(loggedUser)
+        setIsUser(user)
+        console.log(isUser)
+    }
+
+    useEffect(() => {
+        userState()
+    }, [])
 
     return (
         <Stack w='100vw' borderBottom='2px solid #24222E'>
@@ -26,13 +39,13 @@ export const Navbar = () => {
                     />
                 </Box>
                 <Box w='50%'>
-                    
+
                     <Flex direction='row-reverse' justifyContent='space-evenly' alignContent='center'>
                         <Menu>
-                            <MenuButton as={Button} bg='none' border='none' cursor='pointer' isDisabled={!user} fontSize='20px' color='#fff'>
-                                {user ?  <Avatar
-                                    name={user}
-                                    src={user}
+                            <MenuButton as={Button} bg='none' border='none' cursor='pointer' isDisabled={!isUser} fontSize='20px' color='#fff'>
+                                {isUser ? <Avatar
+                                    name={isUser.data.email}
+                                    src={isUser.data.email}
                                     borderRadius='100%'
                                     w='4em'
                                     mr='2em'
@@ -54,7 +67,7 @@ export const Navbar = () => {
                             </MenuList>
                         </Menu>
                         <Text color='white' fontWeight='bold'>
-                            {user ? `${user}` : <NavLink to='/login' >Iniciar sesion</NavLink>}
+                            {isUser ? `${isUser}` : <NavLink to='/login' >Iniciar sesion</NavLink>}
                         </Text>
                     </Flex>
                 </Box>

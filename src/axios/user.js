@@ -23,14 +23,15 @@ export const getUser = async () => {
 export const getOneById = async () => {
     try {
         const {id} = await jwt(token)
-        const response = await axios({
+        const {data} = await axios({
             method: 'get',
             url: `http://localhost:3001/users/${id}`,
             headers:{
                 authorization: "Bearer " + token?.replace(/['"]+/g, '')
             }            
         })
-        return response.data
+        console.log(data)
+        return data
     } catch (error) {
         
     }
